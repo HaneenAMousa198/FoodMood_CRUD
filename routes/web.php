@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\MoodController;
 
 // الصفحة الرئيسية - صفحة home
 Route::get('/', function () {
@@ -20,3 +17,19 @@ Route::get('/qpage', function () {
 Route::get('/resultpage', function () {
     return view('resultpage');
 })->name('resultpage');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+
+
+
+
+
+Route::get('/questions', [MoodController::class, 'showQuestions'])->name('questions.page');
+Route::post('/submit-answers', [MoodController::class, 'submitAnswers'])->name('submitAnswers');
