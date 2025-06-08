@@ -1,5 +1,5 @@
 <html>
- @include('layouts.head')
+  @include('layouts.head')
   <body>
     <div class="relative flex size-full min-h-screen flex-col bg-[#fcfaf8] group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
       <div class="layout-container flex h-full grow flex-col">
@@ -10,6 +10,7 @@
             <p class="text-[#1b140d] text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">
               Based on your responses, we think you're feeling happy! Here are some food suggestions to match your mood:
             </p>
+
             <div class="p-4 @container">
               <div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start shadow-[0_0_4px_rgba(0,0,0,0.1)] bg-[#fcfaf8]">
                 <div
@@ -27,6 +28,7 @@
                 </div>
               </div>
             </div>
+
             <div class="p-4 @container">
               <div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start shadow-[0_0_4px_rgba(0,0,0,0.1)] bg-[#fcfaf8]">
                 <div
@@ -44,6 +46,7 @@
                 </div>
               </div>
             </div>
+
             <div class="p-4 @container">
               <div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start shadow-[0_0_4px_rgba(0,0,0,0.1)] bg-[#fcfaf8]">
                 <div
@@ -61,20 +64,28 @@
                 </div>
               </div>
             </div>
+
             <div class="flex justify-center">
               <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 max-w-[480px] justify-center">
-                <button  onclick="window.location.href='{{ route('home') }}';"
-                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ef9842] text-[#1b140d] text-sm font-bold leading-normal tracking-[0.015em] grow"
-                >
-                  <span class="truncate">Try Again</span>
-                </button>
+
+                <!-- زر Try Again بعد التعديل -->
                 <button
-                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#f3ede7] text-[#1b140d] text-sm font-bold leading-normal tracking-[0.015em] grow"
+                  onclick="window.location.href='{{ route('home') }}';"
+                  class="self-start bg-[#eaadd6] hover:bg-[#f280cd] text-[#191016] px-6 py-3 rounded-full font-semibold transition-transform duration-200 ease-in-out hover:scale-[1.03] hover:shadow-lg"
                 >
-                  <span class="truncate">Share</span>
+                  Try Again
                 </button>
+
+                <!-- زر Share بعد التعديل -->
+                <button
+                  class="self-start bg-[#eaadd6] hover:bg-[#f280cd] text-[#191016] px-6 py-3 rounded-full font-semibold transition-transform duration-200 ease-in-out hover:scale-[1.03] hover:shadow-lg"
+                >
+                  Share
+                </button>
+
               </div>
             </div>
+
           </div>
         </div>
         @include('components.footer')
