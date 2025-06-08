@@ -49,7 +49,7 @@
                   <label class="block text-sm font-medium text-[#191016] mb-1">Message</label>
                   <textarea class="w-full border border-[#e0d0dc] rounded-md px-4 py-2 h-28 resize-none focus:outline-none focus:ring-2 focus:ring-[#d67ab1]" placeholder="Your message here..."></textarea>
                 </div>
-                <button type="submit" class="bg-[#eaadd6] hover:bg-[#7a5a3b] text-[#191016] px-6 py-3 rounded-full font-semibold transition duration-300">
+                <button type="submit" class="bg-[#eaadd6] hover:bg-[#f280cd] text-[#191016] px-6 py-3 rounded-full font-semibold transition duration-300">
                   Send Message    
                 </button>
               </form>

@@ -1,38 +1,41 @@
 
-<html>
+<html lang="en" dir="ltr">
   @include('layouts.head')
   <body>
-    <div class="relative flex size-full min-h-screen flex-col bg-[#fcf8fa] group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
-      <div class="layout-container flex h-full grow flex-col">
+    <div class="relative flex min-h-screen flex-col bg-[#fcf8fa] font-sans overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex grow flex-col">
         @include('components.header')
-        <div class="px-40 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-            <div class="@container">
-              <div class="@[480px]:p-4">
-                <div
-                  class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
-                  style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCqisg9DIjYq_jxGiUhoCFj6C_MHF8FyxeyECdQX0NAvsligAvgbjb3OIRCdl0x0twJSAFkzNOUDfXAULYEawoWAITaGRSz4m1BwvdrhIRKaUmBwI0b-sbhI23o3JaiF8QWwabbBTUPv5kH-IvobbMDaRRdDnAIuQVrTL1KxfWWQea0MCXYK6RiHQGJLQ_icrSr4N5eRyOYKt6cFTTfn1CGTpfmvr9dCje7ntdYLBc94X5c_bM_u11R_5WIku1n4Z9NFT4JECR69psC");'
-                >
-                  <div class="flex flex-col gap-2 text-center">
-                    <h1
-                      class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                    >
-                      Discover the perfect food for your mood
-                    </h1>
-                    <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
-                      Uncover personalized food recommendations tailored to your emotional state. Start your journey to a happier, healthier you.
-                    </h2>
-                  </div>
-                  <button onclick="window.location.href='{{ route('qpage') }}';"
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#ea47b4] text-[#fcf8fa] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
-                  >
-                    <span class="truncate">Ready to discover yourself?</span>
-                  </button>
-                </div>
-              </div>
-            </div>
+
+        <!-- <main class="flex flex-1 justify-center items-center px-6 py-16 max-w-7xl mx-auto gap-16 flex-wrap md:flex-nowrap"> -->
+        <main class="flex flex-1 justify-center items-center px-6 py-16 max-w-7xl mx-auto gap-16 flex-col-reverse md:flex-row">
+
+        
+        <!-- Text content -->
+          <div class="max-w-md flex flex-col justify-center text-left space-y-6">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#111] leading-tight">
+              <span class="text-[#e63946]">🍴</span> MoodFood
+            </h1>
+            <p class="text-lg text-[#4d3b39] leading-relaxed">
+              Uncover personalized food recommendations tailored to your emotional state. Start your journey to a happier, healthier you.
+            </p>
+           <button
+              onclick="window.location.href='{{ route('qpage') }}';"
+              class="self-start bg-[#eaadd6] hover:bg-[#f280cd] text-[#191016] px-6 py-3 rounded-full font-semibold transition-transform duration-200 ease-in-out hover:scale-[1.03] hover:shadow-lg"
+            >
+              Ready to discover yourself?
+            </button>
           </div>
-        </div>
+
+          <!-- Image -->
+          <div class="max-w-md">
+            <img
+              src="{{ asset('image\brain.png') }}"
+              alt="Food Mood Brain"
+              class="w-full h-auto rounded-lg "
+            />
+          </div>
+        </main>
+
         @include('components.footer')
       </div>
     </div>
