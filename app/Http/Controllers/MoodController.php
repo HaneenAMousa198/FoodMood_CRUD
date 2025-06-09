@@ -8,40 +8,18 @@ class MoodController extends Controller
 {
     public function showQuestions()
     {
-        $questions = [
-            [
-                'question' => 'How are you feeling today?',
-                'answers' => ['Happy', 'Sad', 'Stressed', 'Relaxed', 'Angry', 'Excited'],
-            ],
-            [
-                'question' => 'How was your sleep last night?',
-                'answers' => ['Happy', 'Sad', 'Stressed', 'Relaxed', 'Angry', 'Excited'],
-            ],
-            [
-                'question' => 'How do you feel about your work/study?',
-                'answers' => ['Happy', 'Sad', 'Stressed', 'Relaxed', 'Angry', 'Excited'],
-            ],
-            [
-                'question' => 'How do you feel about your relationships?',
-                'answers' => ['Happy', 'Sad', 'Stressed', 'Relaxed', 'Angry', 'Excited'],
-            ],
-            [
-                'question' => 'How is your general energy today?',
-                'answers' => ['Happy', 'Sad', 'Stressed', 'Relaxed', 'Angry', 'Excited'],
-            ],
-        ];
+        $questions = include app_path('Data/questions.php');
 
         return view('qpage', compact('questions'));
     }
 
-
-     public function submitAnswers(Request $request)
+    public function submitAnswers(Request $request)
     {
-        // نحصل على كل الإجابات المدخلة
-        $answers = $request->except('_token'); // إزالة التوكن
+        $answers = $request->except('_token');
 
-        // هنا ممكن تعملي معالجة على النتائج حسب الحاجة
-        // مثلاً حساب عدد كل شعور أو أي منطق تريدينه
+        // ممكن تستخدم القيم هنا لتحديد اقتراحات طعام بناءً على التحليل
+        // مثال بسيط:
+        // if answer_0 == "Tired" && answer_2 == "Low energy" => suggest "Smoothie" or "Fruit Bowl"
 
         return view('resultpage', compact('answers'));
     }

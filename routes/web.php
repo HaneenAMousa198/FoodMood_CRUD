@@ -9,9 +9,7 @@ Route::get('/', function () {
 })->name('home');
 
 // صفحة الأسئلة
-Route::get('/qpage', function () {
-    return view('qpage');
-})->name('qpage');
+Route::get('/qpage', [MoodController::class, 'showQuestions'])->name('qpage');
 
 // صفحة النتائج
 Route::get('/resultpage', function () {
