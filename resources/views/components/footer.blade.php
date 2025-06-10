@@ -1,6 +1,6 @@
 <!-- تذييل الصفحة (Footer) -->
 <footer class="flex justify-center bg-[#fbf9fa] ">
-  <div class="max-w-[960px] w-full px-6 text-center font-sans text-[#7d6b54] select-none">
+  <div class="max-w-[960px] w-full px-3 text-center font-sans text-[#7d6b54] select-none">
 
     <!-- روابط سياسة الخصوصية والشروط -->
     <div class="flex flex-wrap justify-center gap-4 mb-6 text-xs font-medium tracking-wide">
