@@ -25,24 +25,17 @@ class MoodController extends Controller
             $answers[] = $request->input("answer_$i");
         }
         
-        
         $moodAnalysis = $this->analyzeMood($answers);
-         $recipes = $this->getSuggestedRecipes($moodAnalysis);
-        
-       
         $recipes = $this->getSuggestedRecipes($moodAnalysis);
-
-
 
          // save in database
         MoodResult::create([
-            'answers' => ($answers),
+            'answers' => json_encode($answers),
             'analysis' => $moodAnalysis['analysis'],
-            'dominant_moods' => ($moodAnalysis['dominant_moods']),
+            'dominant_moods' => json_encode($moodAnalysis['dominant_moods']),
         ]);
-        
 
-        return view('results', [
+        return view('resultpage', [
             'mood' => $moodAnalysis,
             'recipes' => $recipes
         ]);
@@ -115,7 +108,7 @@ class MoodController extends Controller
     
     private function getSuggestedRecipes(array $moodAnalysis)
     {
-        $dominantMood = $moodAnalysis['dominant_mood'][0]['mood'] ?? 'Neutral';
+        $dominantMood = $moodAnalysis['dominant_moods'][0]['mood'] ?? 'Neutral';
         
         // إنشاء prompt لاقتراح الوصفات
         $prompt = "Suggest 3 food recipes suitable for someone who is feeling {$dominantMood}. 
@@ -137,7 +130,7 @@ class MoodController extends Controller
                     ['role' => 'user', 'content' => $prompt]
                 ],
                 'temperature' => 0.7,
-                'response_format' => ['type' => 'json_object']
+                'response_format' => 'json'
              ]);
             
             $recipes = json_decode($response->json()['choices'][0]['message']['content'], true);

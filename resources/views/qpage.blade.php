@@ -22,20 +22,20 @@
                 </div>
               </div>
             
-@foreach ($questions as $index => $q)
-  <div class="question-container" data-index="{{ $index }}" style="{{ $index === 0 ? '' : 'display:none;' }}">
-    <h2 class="text-[#191016] text-[28px] font-bold text-center pb-3 pt-5">{{ $q['question'] }}</h2>
-    <div class="flex flex-wrap gap-3 p-4 justify-center">
-      @foreach ($q['options'] as $option)
-        <label class="text-sm font-medium leading-normal flex items-center justify-center rounded-xl border border-[#e4d3de] px-4 h-11 text-[#191016] cursor-pointer
-          has-[:checked]:border-[3px] has-[:checked]:px-3.5 has-[:checked]:border-[#eaadd6] relative">
-          {{ $option }}
-          <input type="radio" class="invisible absolute" name="answer_{{ $index }}" value="{{ $option }}" required />
-        </label>
-      @endforeach
-    </div>
-  </div>
-@endforeach
+                @foreach ($questions as $index => $q)
+                  <div class="question-container" data-index="{{ $index }}" style="{{ $index === 0 ? '' : 'display:none;' }}">
+                    <h2 class="text-[#191016] text-[28px] font-bold text-center pb-3 pt-5">{{ $q['question'] }}</h2>
+                    <div class="flex flex-wrap gap-3 p-4 justify-center">
+                      @foreach ($q['options'] as $option)
+                        <label class="text-sm font-medium leading-normal flex items-center justify-center rounded-xl border border-[#e4d3de] px-4 h-11 text-[#191016] cursor-pointer
+                          has-[:checked]:border-[3px] has-[:checked]:px-3.5 has-[:checked]:border-[#eaadd6] relative">
+                          {{ $option }}
+                          <input type="radio" class="invisible absolute" name="answer_{{ $index }}" value="{{ $option }}" required />
+                        </label>
+                      @endforeach
+                    </div>
+                  </div>
+                @endforeach
 
 
               <div class="flex justify-between px-4 py-3">
