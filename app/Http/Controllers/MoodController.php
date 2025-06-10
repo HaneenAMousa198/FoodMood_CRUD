@@ -60,7 +60,7 @@ class MoodController extends Controller
                 'Authorization' => 'Bearer '.env('OPENAI_API_KEY'),
                 'Content-Type' => 'application/json',
                 ])->post('https://api.openai.com/v1/chat/completions', [
-                 'model' => 'gpt-4',
+                 'model' => 'gpt-4',// 
                  'messages' => [
                 ['role' => 'user', 'content' => $prompt]
             ],
@@ -71,7 +71,7 @@ class MoodController extends Controller
         
            // نحاول نستخرج المزاجين مع الدرجات بشكل تلقائي
            preg_match_all('/(Happy|Stressed|Energetic|Tired|Sad|Relaxed|Adventurous|Nostalgic)\s*:\s*(\d{1,3})/i', $analysis, $matches, PREG_SET_ORDER);
-
+            // error
            $dominantMoods = [];
            foreach ($matches as $match) {
             $dominantMoods[] = [
@@ -106,39 +106,40 @@ class MoodController extends Controller
     }
 
     
-    private function getSuggestedRecipes(array $moodAnalysis)
-    {
-        $dominantMood = $moodAnalysis['dominant_moods'][0]['mood'] ?? 'Neutral';
-        
-        // إنشاء prompt لاقتراح الوصفات
-        $prompt = "Suggest 3 food recipes suitable for someone who is feeling {$dominantMood}. 
-        For each recipe, provide:
-        - Recipe name
-        - 5-6 main ingredients
-        - Brief preparation method (2-3 sentences)
-        - Serving suggestion
-        
-        Format the response as a JSON object with recipes array containing these fields: name, ingredients, method, serving_suggestion.";
-        
-        try {
-             $response = Http::withHeaders([
-                'Authorization' => 'Bearer '.env('OPENAI_API_KEY'),
-                'Content-Type' => 'application/json'
-            ])->post('https://api.openai.com/v1/chat/completions', [
-                'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    ['role' => 'user', 'content' => $prompt]
-                ],
-                'temperature' => 0.7,
-                'response_format' => 'json'
-             ]);
-            
-            $recipes = json_decode($response->json()['choices'][0]['message']['content'], true);
-            
-            return $recipes['recipes'] ?? [];
-            
-        } catch (\Exception $e) {
-            return [];
-        }
+   private function getSuggestedRecipes(array $moodAnalysis)
+{
+    $dominantMood = $moodAnalysis['dominant_moods'][0]['mood'] ?? 'Neutral';
+    
+    $prompt = "Suggest 3 food recipes suitable for someone who is feeling {$dominantMood}. 
+    For each recipe, provide:
+    - Recipe name
+    - 5-6 main ingredients
+    - Brief preparation method (2-3 sentences)
+    - Serving suggestion
+    
+    Format the response as a JSON object with recipes array containing these fields: name, ingredients, method, serving_suggestion.";
+
+    try {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer '.env('OPENAI_API_KEY'),
+            'Content-Type' => 'application/json'
+        ])->post('https://api.openai.com/v1/chat/completions', [
+            'model' => 'gpt-4o',
+            'messages' => [
+                ['role' => 'user', 'content' => $prompt]
+            ],
+            'temperature' => 0.7
+        ]);
+
+        $content = $response->json()['choices'][0]['message']['content'] ?? '{}';
+        $recipes = json_decode($content, true);
+
+        return $recipes['recipes'] ?? [];
+
+    } catch (\Exception $e) {
+        \Log::error('Failed to fetch recipes: '.$e->getMessage());
+        return [];
     }
+}
+
 }
