@@ -21,10 +21,10 @@ class MoodController extends Controller
             $answers[] = $request->input("answer_$i");
         }
 
-        // تحليل ثابت بدل تحليل AI مؤقتًا
+        
         $fixedAnalysis = "You're feeling happy and relaxed today, so I'll suggest recipes that match this mood.";
 
-        // مزاج ثابت
+        
         $dominantMoods = [
             ['mood' => 'Happy', 'confidence' => 90],
             ['mood' => 'Relaxed', 'confidence' => 85],
@@ -35,10 +35,10 @@ class MoodController extends Controller
             'dominant_moods' => $dominantMoods
         ];
 
-        // وصفات ثابتة مؤقتًا
+        
         $recipes = $this->getSuggestedRecipes();
 
-        // تخزين في قاعدة البيانات
+        
         MoodResult::create([
             'answers' => json_encode($answers),
             'analysis' => $fixedAnalysis,
