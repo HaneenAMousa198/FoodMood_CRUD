@@ -48,7 +48,7 @@
               @endforeach
             </div>
 
-            <!-- رفع الأزرار شوي -->
+        
             <div class="flex justify-center mt-2 sm:mt-5">
               <div class="flex flex-1 gap-2 sm:gap-3 flex-wrap px-2 py-2 max-w-[480px] justify-center">
                 <button
