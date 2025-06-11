@@ -6,6 +6,107 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\MoodResult;
 
+class MoodController extends Controller
+{
+    public function showQuestions()
+    {
+        $questions = include app_path('Data/questions.php');
+        return view('qpage', compact('questions'));
+    }
+
+    public function submitAnswers(Request $request)
+    {
+        $answers = [];
+        for ($i = 0; $i < 8; $i++) {
+            $answers[] = $request->input("answer_$i");
+        }
+
+        // تحليل ثابت بدل تحليل AI مؤقتًا
+        $fixedAnalysis = "You're feeling happy and relaxed today, so I'll suggest recipes that match this mood.";
+
+        // مزاج ثابت
+        $dominantMoods = [
+            ['mood' => 'Happy', 'confidence' => 90],
+            ['mood' => 'Relaxed', 'confidence' => 85],
+        ];
+
+        $moodAnalysis = [
+            'analysis' => $fixedAnalysis,
+            'dominant_moods' => $dominantMoods
+        ];
+
+        // وصفات ثابتة مؤقتًا
+        $recipes = $this->getSuggestedRecipes();
+
+        // تخزين في قاعدة البيانات
+        MoodResult::create([
+            'answers' => json_encode($answers),
+            'analysis' => $fixedAnalysis,
+            'dominant_moods' => json_encode($dominantMoods),
+        ]);
+
+        return view('resultpage', [
+            'mood' => $moodAnalysis,
+            'recipes' => $recipes
+        ]);
+    }
+
+    private function getSuggestedRecipes()
+    {
+        return [
+            [
+                'name' => 'Strawberry Spinach Salad',
+                'ingredients' => [
+                    'Fresh spinach',
+                    'Sliced strawberries',
+                    'Feta cheese',
+                    'Walnuts',
+                    'Balsamic vinaigrette',
+                    'Red onion'
+                ],
+                'method' => 'Toss all ingredients in a large bowl and drizzle with vinaigrette.',
+                'serving_suggestion' => 'Serve chilled as a light lunch or appetizer.'
+            ],
+            [
+                'name' => 'Creamy Avocado Pasta',
+                'ingredients' => [
+                    'Pasta',
+                    'Ripe avocado',
+                    'Garlic',
+                    'Lemon juice',
+                    'Olive oil',
+                    'Basil'
+                ],
+                'method' => 'Blend avocado, garlic, lemon juice, olive oil, and basil into a creamy sauce. Mix with warm pasta.',
+                'serving_suggestion' => 'Garnish with cherry tomatoes and parmesan cheese.'
+            ],
+            [
+                'name' => 'Mango Yogurt Parfait',
+                'ingredients' => [
+                    'Greek yogurt',
+                    'Fresh mango cubes',
+                    'Honey',
+                    'Granola',
+                    'Mint leaves'
+                ],
+                'method' => 'Layer yogurt, mango, and granola in a glass. Drizzle with honey.',
+                'serving_suggestion' => 'Chill before serving and garnish with mint leaves.'
+            ]
+        ];
+    }
+
+
+    /*
+    ========== AI Code (معلّق مؤقتاً) ==========
+
+   <?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use App\Models\MoodResult;
+
 
 class MoodController extends Controller
 {
@@ -142,4 +243,8 @@ class MoodController extends Controller
     }
 }
 
+}
+
+    ========== /AI Code ==========
+    */
 }
